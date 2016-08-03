@@ -63,8 +63,8 @@ public class TestMachine {
 Step 7: Write basic TestCase and TestRunner style classes using the same
         approach as given in http://www.tutorialspoint.com/junit/junit_basic_usage.htm
         
-Step 8: Compile your code with 'javac *.java'
-Step 9: Execute your basic test with ' java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar <YourTestRunnerClass>' 
+Step 8: Compile your code with 'javac -cp junit-4.12.jar;hamcrest-core-1.3.jar;. *.java'
+Step 9: Execute your basic test with 'java -cp junit-4.12.jar;hamcrest-core-1.3.jar;. <YourTestRunnerClass>' 
 
 Step 10: If the test your wrote fails, adjust the test to pass, if it passes, adjust it to fail 
         and note the way junit reports errors
