@@ -160,3 +160,5 @@ Step 23: Modify the getMachineAverageUptime method to accept an extra parameter 
 Step 24: Add 2 more testing value and result sets to your Parameterized test.
          Think about how this tool can support boundary and equivalence partitioning within your testing plan. 
          
+         
+A complete worked solution for this lab can be found at https://github.com/twisty-n/SENG3160Labs
