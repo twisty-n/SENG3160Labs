@@ -1,0 +1,20 @@
+Notes
+
+Basic usage is with a `TestCase` class
+This class is then executed with a test runner class
+
+Generally the `TestCase` class will instantiate some model or business logic and then execute and test it
+
+Tests can be assembled into a TestSuit, which can then all be run together
+
+Generally, this sort of stuff is handled by the IDE, and will have integration either native or via plugin. 
+
+JUnit is annotation based
+the `@Test` annotation is given to methods that act as the tests that we are trying to runner
+
+object based assertions are not deep. They only work on shallow objects
+
+AssertJ can do deep object inspections, 
+
+but it may be worth fully specifing what you want it to look like manually, and failing the test
+manually if it doesn't look good
