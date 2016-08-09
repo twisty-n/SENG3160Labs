@@ -1,0 +1,164 @@
+Week 2 Lab Specification
+
+Lab Objectives
+
+- Learn about the basic use of Junit within a standard java project
+- Understand the role of JUnit in terms of unit testing an MVC based project
+- Know how to set up basic test cases given a model class
+- Know and have used some of the basic assert* API that junit provides
+- Know how to run a suite of test cases under a single test runner
+- Know how to test for certain exceptions being thrown from methods
+- Know how to run the same test case multiple times with parametised testing
+
+This lab will use the basic tutorial items outlined in http://www.tutorialspoint.com/junit/junit_overview.htm
+
+Step 1: Download the Junit and Hamcrest jars from https://github.com/junit-team/junit4/wiki/Download-and-Install
+Step 2: Create a junit_workspace directory in your U: drive
+Step 3: Add the jars to your classpath
+Step 4: Add an environment variable JUNIT_HOME pointing to the directory containg the jars (probably U:/junit_workspace
+Step 5: Read the JUnit overview given in the link above
+    - Think about where unit testing will fit in the context of a typical web project
+    - This will often depend on the stack and design pattern used
+        - e.g. Unit testing controller enpoints vs unit testing model methods/business logic
+Step 6: Save the follow code snippet as 'TestMachine.java' in your junit_workspace directory
+
+import java.util.*;
+
+public class TestMachine {
+
+    private int machineId;
+    private int machineUptime;
+    private String machineDesignation;
+
+    public TestMachine(int machineId, int machineUptime, String designation) {
+        this.machineId = machineId;
+        this.machineUptime = machineUptime;
+        this.machineDesignation = machineDesignation;
+    }
+
+    public int getMachineId() {
+        return this.machineId;
+    }
+
+    public int getMachineHash(int key) {
+        return 2 * key * machineId;
+    }
+
+    public String getMachineDesignation() {
+        return this.machineDesignation + "::" + machineId;
+    }
+
+    public List<Integer> getMachineInfo() {
+        return new LinkedList<Integer>();
+    }
+    /*
+    public int getMachineAverageUptime(int hours) {
+        // if (hours == 0) throw new NumberFormatException();
+        return machineUptime / hours;
+    }
+    */
+
+}
+
+Step 7: Write basic TestCase and TestRunner style classes using the same
+        approach as given in http://www.tutorialspoint.com/junit/junit_basic_usage.htm
+        
+Step 8: Compile your code with 'javac -cp junit-4.12.jar;hamcrest-core-1.3.jar;. *.java'
+Step 9: Execute your basic test with 'java -cp junit-4.12.jar;hamcrest-core-1.3.jar;. <YourTestRunnerClass>' 
+
+Step 10: If the test your wrote fails, adjust the test to pass, if it passes, adjust it to fail 
+        and note the way junit reports errors
+        
+Step 11: Expand your TestCase class with more tests using at least 3 different assert* methods as described in http://www.tutorialspoint.com/junit/junit_api.htm
+Step 12: Think about comparing two objects using the assertEquals method. Does this perform a deep or shallow comparison?
+
+Step 13: Create a second class that will run some test cases. Add an extra test case to this class, or cut and paste one 
+        from your original test cases
+Step 14: Create a TestSuite class using the given snippet below, updating it to use your own TestCase classes
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    Test_TestMachine.class,     // Your class here
+    Test_TestMachine2.class    // Your class here
+})
+
+public class TestMachineSuite { /* stub */ }
+
+Step 15: Update your TestRunner class to use your TestSuite class 
+        The update should occur on this line: 'Result testResult = JUnitCore.runClasses(TestMachineSuite.class);'
+        
+Step 16: Recompile and run your test case. Using a 'Suite' of test cases makes it easy to structure your testing code
+        in a way that best matches your project
+
+Step 17: Uncomment the 'getMachineAverageUptime' method
+Step 18: Add a test to one of you TestCase classes. This test should check that the method throws a 'NumberFormatException'
+        when '0' is passed as a parameter to the method. Use http://www.tutorialspoint.com/junit/junit_exceptions_test.htm
+        to help write this test case
+Step 19: Compile and run your test cases. This test should fail, having seen an incorrect exception. Uncomment the commented line 
+        in 'getMachineAverageUptime', recompile and rerun the test cases. The test should now pass
+        This sort of testing can good to check that all errors are handled in a sensible and expected way 
+        within your application
+        
+Step 20: Copy the following class into an appropriately named file
+
+import java.util.Arrays;
+import java.util.Collection;
+ 
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.junit.runner.RunWith;
+import static org.junit.Assert.assertEquals;
+
+@RunWith(Parameterized.class)
+public class MachineAverageUptimeTest {
+
+    private int uptime;
+    private int hours;
+    private int expectedResult;
+    private TestMachine testMachine;
+
+    @Before
+    public void initialize() {
+        testMachine = new TestMachine(0, uptime, "");
+    }
+
+    public MachineAverageUptimeTest(
+        int uptime, 
+        int hours,
+        int expectedResult) {
+            this.uptime = uptime;
+            this.hours = hours;
+            this.expectedResult = expectedResult;
+    }
+
+    @Parameterized.Parameters
+    public static Collection machines() {
+        return Arrays.asList(new Object[][] {
+            {4, 2, 2},
+            {6, 3, 2},
+            {5, 3, 7}
+        });
+    }
+
+    @Test
+    public void testMachineAverageUptimeCalc() {
+        assertEquals(testMachine.getMachineAverageUptime(hours), expectedResult);
+    }
+
+}
+
+Step 21: Add this class to the TestSuite file that was created above
+Step 22: Use the information from http://www.tutorialspoint.com/junit/junit_parameterized_test.htm
+        to understand what this class is doing. Compile your code and rerun your tests
+Step 23: Modify the getMachineAverageUptime method to accept an extra parameter and use it as part of
+         the calculation. Then update your test cases to support this change.
+Step 24: Add 2 more testing value and result sets to your Parameterized test.
+         Think about how this tool can support boundary and equivalence partitioning within your testing plan. 
+         
+         
+A complete worked solution for this lab can be found at https://github.com/twisty-n/SENG3160Labs
