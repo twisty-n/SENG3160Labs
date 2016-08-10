@@ -1,3 +1,3 @@
 public interface IMachineService {
-    public double getMachineRuntime(TestMachine machine);
+    public double getMachineCost(TestMachine machine);
 }

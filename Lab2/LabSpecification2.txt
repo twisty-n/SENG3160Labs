@@ -1,0 +1,27 @@
+Week 3 Lab Specification
+
+Lab Objectives
+
+- Learn about the basic use of EasyMock within a standard java project
+- Understand the role of EasyMOck in terms of unit testing a loosely coupled Java Codebase
+- See how JUnit and easy mock can be used together
+- See how to mock service behaviour and exceptions, and test for call counts
+
+Step 1: Download the lab code ZIP from https://github.com/twisty-n/SENG3160Labs
+Step 2: "cd" into the Lab2/code directory
+Step 3: run the "test" command to ensure all of the code 
+        builds on your machine
+Step 4: Read the overview of EasyMock at http://www.tutorialspoint.com/easymock/easymock_overview.htm
+Step 5: Read Adding and Verifying Behaviour from the same tutorial. Look at the sample
+        classes provided and see how to structure the mocks, and how code would have to be
+        structured to allow this mocking to occur
+Step 6: Specify another method in the IMachineService and mock this out by adding the appropriate
+        elements to the provided code
+Step 7: Run your new test of the added method. Using the "Verifying Behaviour" section, 
+        verify that the call to the new Service method has been made
+Step 8: Modify your code to test if the service has been called at least once
+        use http://www.tutorialspoint.com/easymock/easymock_varying_calls.htm as a guide.
+Step 9: Mock an exception being thrown from your method. Modify your TestMachine code 
+        to deal with this exception, and then test for this. Refer back to last weeks
+        "ExceptionTesting" code as an example
+       
